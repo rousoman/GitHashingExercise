@@ -1,0 +1,2 @@
+SSH: git@github.com:rousoman/GitHashingExercise.git
+HTTPS: https://github.com/rousoman/GitHashingExercise.git

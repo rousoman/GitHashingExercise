@@ -1,0 +1,144 @@
+example1.c:
+
+i) Code Execution:
+	
+
+ii) Example Usage & Output:
+        Compile the program: gcc example1.c -o example1
+        Run the program: ./example1
+
+	Output:
+	Parent Process: PID = 3426588, Created Child PID = 3426589
+	Child Process: PID = 3426589, Parent PID = 3426588
+	total 40
+	-rwxrwxr-x 1 rousoman rousoman 17048 Δεκ  30 16:25 example1
+	-rw-rw-r-- 1 rousoman rousoman   855 Δεκ  30 16:23 example1.c
+	-rw-rw-r-- 1 rousoman rousoman   347 Δεκ  30 16:23 example2.c
+	-rw-rw-r-- 1 rousoman rousoman   643 Δεκ  30 16:23 example3.c
+	-rw-rw-r-- 1 rousoman rousoman   670 Δεκ  30 16:23 example4.c
+	-rw-rw-r-- 1 rousoman rousoman  1622 Δεκ  30 16:23 example5.c
+	Parent Process: Child has terminated.
+
+iii) Source Code Explanation:
+	1. The program creates a child process using fork() by duplicating the calling process. 
+	   In the parent process, fork() returns the PID of the child (a positive integer).
+	   In the child process, fork() returns 0.
+
+	2. If fork() fails, it returns a negative value and the program exits.
+
+	3. In the child process (pid == 0), getpid() returns the PID of the current process
+	   (i.e. the child process) and getppid() returns the PID of the parent process 
+	   (i.e. the parent of the child).
+
+	4. The child process executes the "ls -l" program via execlp() command.
+
+	5. If execlp() fails ,it returns, and the program prints an error message and exits with failure.
+
+	6. In the parent process (pid > 0), getpid() prints the PID of the parent process while pid is the PID
+	   of the child process created by fork().
+
+	7. The parent process waits until the child process terminates.
+
+example2.c:
+
+i) Code Execution:
+
+ii) Example Usage & Output:
+        Compile the program: gcc example2.c -o example2
+        Run the program: ./example2
+
+	Output:
+	Current Process ID (PID): 3426844
+	Parent Process ID (PPID): 3426166
+iii) Source Code Explanation:
+	1. Prints the current proccess ID (i.e. the process that executes this code).
+
+	2. Prints the parent proccess ID (i.e. the process that created this program, typically the shell).
+
+example3.c:
+
+i) Code Execution:
+
+ii) Example Usage & Output:
+        Compile the program: gcc example3.c -o example3
+        Run the program: ./example3
+
+        Output:
+	Process ID: 3426952
+	Press Ctrl+C to trigger SIGINT.
+	Running... Press Ctrl+C to exit.
+	Running... Press Ctrl+C to exit.
+	Running... Press Ctrl+C to exit.
+	Running... Press Ctrl+C to exit.
+	Running... Press Ctrl+C to exit.
+	^C
+	Caught signal 2 (SIGINT). Exiting gracefully...
+
+iii) Source Code Explanation:
+	1. We assign the function sigint_handler as the handler of the SIGINT. If signal function fails, the program exits.
+
+	2. The currect process ID is displayed.
+
+	3. The infinite loop keeps the program running. When a SIGINT signal is catched, the sigint_handler is invoked
+	   and the program terminates gracefully.
+
+	4. In the infinite loop, the sleep(2) command pauses the program execution for 2 seconds.
+
+example4.c:
+
+i) Code Execution:
+
+ii) Example Usage & Output:
+        Compile the program: gcc example4.c -o example4
+        Run the program: ./example4
+
+        Output:
+	Process ID: 3426965
+	Press Ctrl+C to attempt to send SIGINT.
+	Running... Try pressing Ctrl+C.
+	Running... Try pressing Ctrl+C.
+	^C
+	Received SIGINT (signal 2), but ignoring it.
+	Running... Try pressing Ctrl+C.
+	Running... Try pressing Ctrl+C.
+	^C
+	Received SIGINT (signal 2), but ignoring it.
+	Running... Try pressing Ctrl+C.
+	Running... Try pressing Ctrl+C.
+
+iii) Source Code Explanation:
+	Same as example3.c but in this case when a SIGINT signal is cathed the program does not terminate.
+
+example5.c:
+
+i) Code Execution:
+
+ii) Example Usage & Output:
+        Compile the program: gcc example5.c -o example5
+        Run the program: ./example5
+
+	Output:
+	Parent process ID: 3427247. Child PID: 3427248
+	Child process ID: 3427248. Waiting for SIGUSR1...
+	Parent sending SIGUSR1 to child.
+	Child received SIGUSR1 (signal 10).
+	Parent sending SIGTERM to child.
+	Child process terminated.
+
+iii) Source Code Explanation:
+
+	1. fork() is called to create a child process. If fork() fails, 
+	   an error message is printed and the program exits.
+
+	2. The child process, registers the sigusr1_handler to handle SIGUSR1 using the signal() system call.
+    	   Prints the child’s process ID and enters an infinite loop, using pause() to wait for signals indefinitely.
+
+	3. In the parent process, prints the parent's process ID and the child’s PID. The parent sleeps for 3 seconds 
+	   to simulate some delay before sending a signal. Sends SIGUSR1 to the child using kill(pid, SIGUSR1) after the delay.
+	   Sleeps for 1 second to ensure the child processes the signal.
+
+	4. The parent sends SIGTERM to terminate the child process using kill(pid, SIGTERM).
+
+	5. The parent waits for the child process to terminate using wait(NULL).
+	   Prints a message indicating that the child has terminated.
+
