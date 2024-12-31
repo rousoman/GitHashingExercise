@@ -1,9 +1,8 @@
 example1.c:
 
-i) Code Execution:
-	
 
-ii) Example Usage & Output:
+Example Usage & Output:
+
         Compile the program: gcc example1.c -o example1
         Run the program: ./example1
 
@@ -19,7 +18,8 @@ ii) Example Usage & Output:
 	-rw-rw-r-- 1 rousoman rousoman  1622 Δεκ  30 16:23 example5.c
 	Parent Process: Child has terminated.
 
-iii) Source Code Explanation:
+Source Code Explanation:
+
 	1. The program creates a child process using fork() by duplicating the calling process. 
 	   In the parent process, fork() returns the PID of the child (a positive integer).
 	   In the child process, fork() returns 0.
@@ -41,25 +41,26 @@ iii) Source Code Explanation:
 
 example2.c:
 
-i) Code Execution:
 
-ii) Example Usage & Output:
+Example Usage & Output:
+
         Compile the program: gcc example2.c -o example2
         Run the program: ./example2
 
 	Output:
 	Current Process ID (PID): 3426844
 	Parent Process ID (PPID): 3426166
-iii) Source Code Explanation:
+Source Code Explanation:
+
 	1. Prints the current proccess ID (i.e. the process that executes this code).
 
 	2. Prints the parent proccess ID (i.e. the process that created this program, typically the shell).
 
 example3.c:
 
-i) Code Execution:
 
-ii) Example Usage & Output:
+Example Usage & Output:
+
         Compile the program: gcc example3.c -o example3
         Run the program: ./example3
 
@@ -74,7 +75,8 @@ ii) Example Usage & Output:
 	^C
 	Caught signal 2 (SIGINT). Exiting gracefully...
 
-iii) Source Code Explanation:
+Source Code Explanation:
+
 	1. We assign the function sigint_handler as the handler of the SIGINT. If signal function fails, the program exits.
 
 	2. The currect process ID is displayed.
@@ -86,9 +88,9 @@ iii) Source Code Explanation:
 
 example4.c:
 
-i) Code Execution:
 
-ii) Example Usage & Output:
+Example Usage & Output:
+
         Compile the program: gcc example4.c -o example4
         Run the program: ./example4
 
@@ -106,14 +108,15 @@ ii) Example Usage & Output:
 	Running... Try pressing Ctrl+C.
 	Running... Try pressing Ctrl+C.
 
-iii) Source Code Explanation:
+Source Code Explanation:
+
 	Same as example3.c but in this case when a SIGINT signal is cathed the program does not terminate.
+
 
 example5.c:
 
-i) Code Execution:
+Example Usage & Output:
 
-ii) Example Usage & Output:
         Compile the program: gcc example5.c -o example5
         Run the program: ./example5
 
@@ -125,7 +128,7 @@ ii) Example Usage & Output:
 	Parent sending SIGTERM to child.
 	Child process terminated.
 
-iii) Source Code Explanation:
+Source Code Explanation:
 
 	1. fork() is called to create a child process. If fork() fails, 
 	   an error message is printed and the program exits.
